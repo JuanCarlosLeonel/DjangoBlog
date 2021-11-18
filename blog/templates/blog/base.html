@@ -1,0 +1,84 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.3/css/all.css" integrity="sha384-SZXxX4whJ79/gErwcOYf+zWLeJdY/qpuqC4cAa9rOGUstPomtqpuNWT9wdPEn2fk" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <a class="navbar-brand" href="{% url 'post_list' %}">DJANGO.BLOG🐍</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}">Sobre nós</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'contact' %}">Contato</a>
+            </li>
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'logout' %}">Sair</a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'login' %}">Login</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
+<div class="row">
+{% if user.is_authenticated %}
+    <p class="logged-in-p">
+        Olá {{ user.username.upper }}, seja bem vindo! O que deseja fazer hoje? 
+        <span class="sair"><a href="{% url 'logout' %}">Sair</a></span>
+        <span><a href="{% url 'post_create' %}">Adicionar post</a></span>
+    </p>
+{% endif %}
+{% block content %}
+{% endblock %}
+</div>
+
+<footer class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <div class="row">
+        <div class="col-3">
+            <h5 class="text-danger">Institucional</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Política de privacidade</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Documentação Oficial</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Reportar erro</a></li>
+            </ul>
+        </div>
+        <div class="col-3">
+            <h5 class="text-info">Links</h5>
+            <ul class="nav flex-column">
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Cursos de Django</a></li>
+                <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted">Compatilhe seu código</a></li>
+            </ul>
+        </div>
+        <div class="col-1 offset-4">   
+            <div class="d-grid gap-2 d-sm-flex justify-content-sm-center">
+                <button type="button" class="btn btn-outline-light btn-lg px-4 gap-3"><i class="fab fa-github-alt"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-lg px-4"><i class="fab fa-instagram"></i></button>
+                <button type="button" class="btn btn-outline-primary btn-lg px-4"><i class="fab fa-facebook-f"></i></button>
+                <button type="button" class="btn btn-outline-danger btn-lg px-4"><i class="fab fa-youtube"></i></button>
+            </div>
+        </div>
+            <span class="copy">&copy; Copyright 2021, Django blog</span>
+    </div>
+</footer>
+
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+</body>
+</html>

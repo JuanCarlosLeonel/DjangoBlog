@@ -1,0 +1,16 @@
+{% extends 'blog/base.html' %}
+{% load bootstrap %}
+{% block title %}Faça o login{% endblock %}
+{% block content %}
+
+<div class="container">
+    <h1>Faça o seu login</h1>
+    <form action="." method="post">
+        {% csrf_token %}
+        {{ form|bootstrap }}
+        <input class="btn btn-primary" type="submit" value="Login">
+    </form>
+    <p class="lead">Não tem uma conta?</p>
+    <a href="{% url 'registrar' %}" class="btn btn-primary">Criar Conta</a>
+</div>
+{% endblock %}
